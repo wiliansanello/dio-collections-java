@@ -5,49 +5,66 @@ import java.util.List;
 
 public class CarrinhoDeCompras {
 
-    private List<Item> carrinhoDeCompras;
+    private List<Item> itemList;
 
     public CarrinhoDeCompras() {
-        this.carrinhoDeCompras = new ArrayList<>();
+        this.itemList = new ArrayList<>();
     }
 
     public void adicionarItem(String nome, double preco, int quantidade){
-        carrinhoDeCompras.add(new Item(nome, preco, quantidade));
+        Item item = new Item(nome, preco, quantidade);
+        itemList.add(item);
     }
 
-//    public void removerItem(String nome){
-//        List<Item> itensParaRemover = new ArrayList<>();
-//        for(Item item : carrinhoDeCompras) {
-//            if(nome.equalsIgnoreCase(carrinhoDeCompras.nome)){
-//                itensParaRemover.add(item);
-//            }
-//        }
-//    }
+    public void removerItem(String nome){
+        List<Item> itensParaRemover = new ArrayList<>();
+        if (!itemList.isEmpty()) {
+            for(Item item : itemList) {
+                if(item.getNome().equalsIgnoreCase(nome)){
+                    itensParaRemover.add(item);
+                }
+            }
+            itemList.removeAll(itensParaRemover);
+        } else {
+            System.out.println("A lista está vazia");
+        }
+    }
 
-    public void calcularValorTotal(){
+    public double calcularValorTotal(){
         double valorTotal = 0;
 
-        for(Item item : carrinhoDeCompras) {
-            valorTotal += item.getPreco() * item.getQuantidade();
+        if(!itemList.isEmpty()) {
+            for(Item item : itemList) {
+                double valorItem = item.getPreco() * item.getQuantidade();
+                valorTotal += valorItem;
+            }
+            return valorTotal;
+        } else {
+            throw new RuntimeException("Não há itens na lista");
         }
-        System.out.println("Valor total: " + valorTotal);
-
     }
 
     public void exibirItens(){
-        System.out.println(carrinhoDeCompras);
+        System.out.println(itemList);
+    }
+
+    public String toString() {
+        return "Itens \n"
+                + itemList ;
     }
 
     public static void main(String[] args) {
 
         CarrinhoDeCompras carrinho = new CarrinhoDeCompras();
-        carrinho.adicionarItem("Smartphone Samsung", 1200.0, 1);
-        carrinho.adicionarItem("Fritadeira Airfryer Arno", 800.0, 2);
-        carrinho.adicionarItem("SmartTV LG", 3000.0, 1);
-        carrinho.exibirItens();
-        carrinho.calcularValorTotal();
+        carrinho.adicionarItem("Smartphone", 1200d, 1);
+        carrinho.adicionarItem("Fritadeira", 800d, 2);
+        carrinho.adicionarItem("SmartTV", 3000d, 1);
 
-    }
+        carrinho.exibirItens();
+
+        carrinho.removerItem("SmartTV");
+        carrinho.exibirItens();
+        carrinho.calcularValorTotal();    }
 }
 
 
