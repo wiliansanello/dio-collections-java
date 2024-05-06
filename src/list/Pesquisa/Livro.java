@@ -12,17 +12,12 @@ public class Livro {
         this.anoPublicacao = anoPublicacao;
     }
 
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", anoPublicacao=" + anoPublicacao +
-                '}';
-    }
-
     public String getTitulo() {
         return titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
     public String getAutor() {
@@ -31,5 +26,14 @@ public class Livro {
 
     public int getAnoPublicacao() {
         return anoPublicacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", anoPublicacao=" + anoPublicacao +
+                '}';
     }
 }
